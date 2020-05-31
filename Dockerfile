@@ -1,5 +1,5 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG JAR_FILE
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM maven:3-jdk-8-alpine
+COPY . /rest-api
+WORKDIR /rest-api
+RUN ["mvn", "clean", "install"]
+CMD ["java", "-jar", "target/rest-service-0.0.1-SNAPSHOT.jar"]
